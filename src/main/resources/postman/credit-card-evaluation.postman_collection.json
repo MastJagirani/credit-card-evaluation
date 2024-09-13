@@ -1,0 +1,189 @@
+{
+  "collection": {
+    "info": {
+      "_postman_id": "c6d5a00a-9ce8-432a-97e5-ce7dda7c0941",
+      "name": "Credit Card Evaluation Service Collection",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "updatedAt": "2024-09-13T22:35:28.000Z",
+      "createdAt": "2024-09-13T21:00:32.000Z",
+      "lastUpdatedBy": "36238570",
+      "uid": "36238570-c6d5a00a-9ce8-432a-97e5-ce7dda7c0941"
+    },
+    "item": [
+      {
+        "name": "Verify Application Success",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "0bab020c-8b2c-43c0-8b12-91ba41c84e0c",
+              "exec": [
+                "var jsonData = JSON.parse(responseBody);\r",
+                "pm.collectionVariables.set(\"requestId\", jsonData.id);"
+              ],
+              "type": "text/javascript",
+              "packages": {
+              }
+            }
+          }
+        ],
+        "id": "e94dc2d6-7a69-44b2-8738-bd1194236c83",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"fullName\": \"Mast Ali\",\r\n  \"emiratesId\": \"123-1314-1234131-3\"\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "url": {
+            "raw": "{{base_url}}/api/v1/credit-card/identity-verification",
+            "host": [
+              "{{base_url}}"
+            ],
+            "path": [
+              "api",
+              "v1",
+              "credit-card",
+              "identity-verification"
+            ]
+          },
+          "description": "Generated from cURL: curl -X POST \"http://localhost:8080/v1/credit-card/identity-verification\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-d '{\r\n  \"fullName\": \"Mast Ali\",\r\n  \"emiratesId\": \"784-1234-1234512-2\"\r\n}'\r\n"
+        },
+        "response": [],
+        "uid": "36238570-e94dc2d6-7a69-44b2-8738-bd1194236c83"
+      },
+      {
+        "name": "Verify Application fail (User Blacklist)",
+        "id": "36950fd7-940f-4e6e-9b9d-adeef64d1aa3",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"fullName\": \"Mast Ali\",\r\n  \"emiratesId\": \"784-1234-1234567-1\" // this id is in blacklist\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "url": {
+            "raw": "{{base_url}}/api/v1/credit-card/identity-verification",
+            "host": [
+              "{{base_url}}"
+            ],
+            "path": [
+              "api",
+              "v1",
+              "credit-card",
+              "identity-verification"
+            ]
+          },
+          "description": "Generated from cURL: curl -X POST \"http://localhost:8080/v1/credit-card/identity-verification\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-d '{\r\n  \"fullName\": \"Mast Ali\",\r\n  \"emiratesId\": \"784-1234-1234512-2\"\r\n}'\r\n"
+        },
+        "response": [],
+        "uid": "36238570-36950fd7-940f-4e6e-9b9d-adeef64d1aa3"
+      },
+      {
+        "name": "Verify Complete Process",
+        "id": "3c295a80-5e1b-4eb9-933f-1a4e2f3ff60a",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n    \"nationality\": \"ca\",\r\n    \"mobileNumber\": \"+971500000000\",\r\n    \"address\": \"Al Amal\",\r\n    \"company\": \"Microsoft\",\r\n    \"joinDate\": \"2024-09-08\", \r\n    \"employmentType\": \"FULL_TIME\",\r\n    \"annualIncome\": \"2000000\",\r\n    \"requestedCreditLimit\": \"2000\"\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "url": {
+            "raw": "{{base_url}}/api/v1/credit-card/complete-verification/{{requestId}}",
+            "host": [
+              "{{base_url}}"
+            ],
+            "path": [
+              "api",
+              "v1",
+              "credit-card",
+              "complete-verification",
+              "{{requestId}}"
+            ]
+          },
+          "description": "Generated from cURL: curl -X POST \"http://localhost:8080/v1/complete-verification/123e4567-e89b-12d3-a456-426614174000\" \\\r\n-H \"Content-Type: application/json\" \\\r\n-d '{\r\n  \"nationality\": \"American\",\r\n  \"mobile\": \"+1234567890\",\r\n  \"address\": \"123 Elm Street\",\r\n  \"company\": \"Example Corp\",\r\n  \"joinDate\": \"2024-01-01\",\r\n  \"employmentType\": \"Full-time\",\r\n  \"annualIncome\": 60000.00,\r\n  \"requestedCreditLimit\": 5000.00\r\n}'\r\n"
+        },
+        "response": [],
+        "uid": "36238570-3c295a80-5e1b-4eb9-933f-1a4e2f3ff60a"
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "712056e6-5f96-4333-92b5-9479b53ea2bd",
+          "type": "text/javascript",
+          "packages": {
+          },
+          "exec": [
+            ""
+          ]
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "89793a99-b3e5-4864-a7bc-08edc119803c",
+          "type": "text/javascript",
+          "packages": {
+          },
+          "exec": [
+            ""
+          ]
+        }
+      }
+    ],
+    "variable": [
+      {
+        "key": "requestId",
+        "value": "0",
+        "type": "string"
+      },
+      {
+        "key": "base_url",
+        "value": "http://localhost:8086",
+        "type": "string"
+      }
+    ]
+  }
+}
