@@ -53,6 +53,8 @@ creditworthiness.
 
 The application will run at `http://localhost:8080`.
 
+### Swagger can be accessed at http://localhost:8080/swagger-ui/index.html
+
 ## API Endpoints (Postman Collection below)
 
 ### 1. Identity Verification
@@ -71,8 +73,15 @@ The application will run at `http://localhost:8080`.
   {
     "id": "123e4567-e89b-12d3-a456-426614174000",
     "emiratesId": "784-1984-1234567-1",
-    "fullName": "John Doe",
+    "fullName": "M Ali",
     "identityVerified": true
+  }
+  ```
+
+  ```json
+  {
+    "id": null,
+    "identityVerified": false
   }
   ```
 
